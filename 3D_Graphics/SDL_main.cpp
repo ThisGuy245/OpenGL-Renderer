@@ -35,7 +35,7 @@ int SDL_main(int argc, char* argv[]) {
 
         // Set shader uniforms
         shader.use();
-        shader.setUniformMatrix4fv("model", glm::value_ptr(player.getTransform()));       // Player model matrix
+        shader.setUniformMatrix4fv("model", glm::value_ptr(player.getTransform()));  // Player model matrix
 
         // Render player (You can load the model and bind it here)
         // player.render(); // Example if you have a render method for the player model.
