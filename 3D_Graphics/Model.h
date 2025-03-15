@@ -313,14 +313,7 @@ inline GLuint Model::vao_id()
 // I added this Draw Function
 inline void Model::Draw()
 {
-    GLuint vao = vao_id();
-
-    if (!m_vaoid)
-    {
-        throw std::runtime_error("Model has no valid VAO. Ensure it is loaded correctly.");
-    }
-
-    glBindVertexArray(vao);
+    glBindVertexArray(vao_id());
     glDrawArrays(GL_TRIANGLES, 0, vertex_count());
     glBindVertexArray(0);
 }
