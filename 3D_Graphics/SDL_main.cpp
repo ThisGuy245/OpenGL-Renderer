@@ -34,8 +34,12 @@ int SDL_main(int argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set shader uniforms
-        shader.use();
-        shader.setUniformMatrix4fv("model", glm::value_ptr(player.getTransform()));  // Player model matrix
+        Shader shader("shaders/basic.vert", "shaders/basic.frag");
+        shader.bind();
+        shader.setMat4("model", glm::mat4(1.0f));
+        shader.setMat4("view", glm::mat4(1.0f));
+        shader.setMat4("projection", glm::mat4(1.0f));
+
 
         // Render player (You can load the model and bind it here)
         // player.render(); // Example if you have a render method for the player model.

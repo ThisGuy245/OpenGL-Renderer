@@ -20,6 +20,12 @@
     <Filter Include="src\utils">
       <UniqueIdentifier>{ef54ac12-7eeb-4b43-a16a-ace7589ae99f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\shaders">
+      <UniqueIdentifier>{7e84a225-9291-4d9f-815f-4da0983c74bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\models">
+      <UniqueIdentifier>{0bfda4a7-7469-4dc3-8df3-8e87e637293c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -93,5 +99,11 @@
     <ClInclude Include="Player.h">
       <Filter>src\game</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic.vert">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="basic.frag" />
   </ItemGroup>
 </Project>
