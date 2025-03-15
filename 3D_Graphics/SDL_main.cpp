@@ -1,23 +1,26 @@
 #include "Window.h"
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/ext.hpp>
 
 #include "Shader.h"
 #include "Player.h"
 #include "Log.h"
+#include "Model.h"
 
 int SDL_main(int argc, char* argv[]) {
     // Initialize window
     Window window("DOOM Level", 1280, 720);
 
     // Load shaders
-    Shader shader("shaders/basic.vert", "shaders/basic.frag");
+    Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
     // Initialize player
-    Player player("assets/curuthers.obj");
+    Player catModel("./assets/models/curuthers/curuthers.obj");
+
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
     // Main loop
     bool quit = false;
@@ -35,7 +38,14 @@ int SDL_main(int argc, char* argv[]) {
         shader.setMat4("projection", glm::mat4(1.0f)); // Projection matrix
 
         // Render the player
-        player.Render(shader);
+        
+
+        catModel.Render(shader);
+
+        // Reset the state
+        glBindVertexArray(0);
+        glUseProgram(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
         // Swap buffers
         window.swapBuffers();

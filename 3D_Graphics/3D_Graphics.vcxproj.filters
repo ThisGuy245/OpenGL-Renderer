@@ -11,23 +11,20 @@
     <Filter Include="includes">
       <UniqueIdentifier>{ca5e5d0b-9456-4205-892a-88599ff1c994}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets">
-      <UniqueIdentifier>{3b9c3928-5366-47e5-87d6-e2625d53bb0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\game">
       <UniqueIdentifier>{87bcdbc0-4d08-401b-941a-dc25f3924130}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\utils">
       <UniqueIdentifier>{ef54ac12-7eeb-4b43-a16a-ace7589ae99f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets\shaders">
-      <UniqueIdentifier>{7e84a225-9291-4d9f-815f-4da0983c74bf}</UniqueIdentifier>
+    <Filter Include="assets">
+      <UniqueIdentifier>{e9352ab3-a65c-49de-a985-ede406e2244c}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets\models">
-      <UniqueIdentifier>{0bfda4a7-7469-4dc3-8df3-8e87e637293c}</UniqueIdentifier>
+      <UniqueIdentifier>{0e9d1794-2779-470e-adb1-5459cae49a03}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets\models\curuthers">
-      <UniqueIdentifier>{943952e6-172a-4f84-b084-2ea92503d0e3}</UniqueIdentifier>
+    <Filter Include="assets\shaders">
+      <UniqueIdentifier>{9c0fa029-3f25-4971-b85b-8ff83fd684ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,9 +32,6 @@
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
@@ -104,24 +98,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="basic.vert">
+    <None Include="assets\models\curuthers\curuthers.mtl">
+      <Filter>assets\models</Filter>
+    </None>
+    <None Include="assets\shaders\basic.frag">
       <Filter>assets\shaders</Filter>
     </None>
-    <None Include="basic.frag">
+    <None Include="assets\shaders\basic.vert">
       <Filter>assets\shaders</Filter>
-    </None>
-    <None Include="assets\curuthers\curuthers.mtl">
-      <Filter>assets\models\curuthers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="assets\curuthers\curuthers.obj">
-      <Filter>assets\models\curuthers</Filter>
-    </Object>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\curuthers\Whiskers_diffuse.png">
-      <Filter>assets\models\curuthers</Filter>
+    <Image Include="assets\models\curuthers\Whiskers_diffuse.png">
+      <Filter>assets\models</Filter>
     </Image>
   </ItemGroup>
 </Project>

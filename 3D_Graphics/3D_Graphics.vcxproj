@@ -141,7 +141,6 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="SDL_main.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -164,15 +163,12 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\curuthers\curuthers.mtl" />
-    <None Include="basic.frag" />
-    <None Include="basic.vert" />
+    <None Include="assets\models\curuthers\curuthers.mtl" />
+    <None Include="assets\shaders\basic.frag" />
+    <None Include="assets\shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="assets\curuthers\curuthers.obj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\curuthers\Whiskers_diffuse.png" />
+    <Image Include="assets\models\curuthers\Whiskers_diffuse.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
