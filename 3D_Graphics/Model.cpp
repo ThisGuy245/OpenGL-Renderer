@@ -4,13 +4,13 @@
 inline Model::Model()
     : m_vboid(0)
     , m_vaoid(0)
-    , m_dirty(false)
+    , m_dirty(true)  // CHANGED MODEL TO BE DIRTY
 { }
 
 inline Model::Model(const std::string& _path)
     : m_vboid(0)
     , m_vaoid(0)
-    , m_dirty(false)
+    , m_dirty(true)  // CHANGED MODEL TO BE DIRTY
 {
     std::vector<glm::vec3> positions;
     std::vector<glm::vec2> tcs;
@@ -84,18 +84,21 @@ inline Model::Model(const std::string& _path)
     }
 }
 
-inline Model::~Model()
+Model::~Model()
 {
     if (m_vaoid)
     {
         glDeleteVertexArrays(1, &m_vaoid);
+        m_vaoid = 0;
     }
 
     if (m_vboid)
     {
         glDeleteBuffers(1, &m_vboid);
+        m_vboid = 0;
     }
 }
+
 
 inline Model::Model(const Model& _copy)
     : m_vaoid(0)
@@ -261,6 +264,20 @@ inline GLuint Model::vao_id()
 
     return m_vaoid;
 }
+
+// I added this Draw Function
+inline void Model::Draw()
+{
+    if (!m_vaoid)
+    {
+        throw std::runtime_error("Model has no valid VAO. Ensure it is loaded correctly.");
+    }
+
+    glBindVertexArray(m_vaoid);
+    glDrawArrays(GL_TRIANGLES, 0, vertex_count());
+    glBindVertexArray(0);
+}
+
 
 inline GLsizei Model::vertex_count() const
 {

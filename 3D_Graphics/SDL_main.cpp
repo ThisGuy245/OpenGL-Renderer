@@ -5,8 +5,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
-
 #include "Shader.h"
 #include "Player.h"
 #include "Log.h"
@@ -16,33 +14,28 @@ int SDL_main(int argc, char* argv[]) {
     Window window("DOOM Level", 1280, 720);
 
     // Load shaders
-    Shader shader("assets/shaders/vertex_shader.glsl", "assets/shaders/fragment_shader.glsl");
+    Shader shader("shaders/basic.vert", "shaders/basic.frag");
 
     // Initialize player
-    Player player;
+    Player player("assets/curuthers.obj");
 
     // Main loop
     bool quit = false;
     while (!quit) {
         window.pollEvents(quit);
 
-        // Update player
-        player.update();
-
         // Clear the screen (background color)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);  // Set background color
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set shader uniforms
-        Shader shader("shaders/basic.vert", "shaders/basic.frag");
         shader.bind();
-        shader.setMat4("model", glm::mat4(1.0f));
-        shader.setMat4("view", glm::mat4(1.0f));
-        shader.setMat4("projection", glm::mat4(1.0f));
+        shader.setMat4("model", glm::mat4(1.0f));  // Model transformation matrix
+        shader.setMat4("view", glm::mat4(1.0f));   // View matrix
+        shader.setMat4("projection", glm::mat4(1.0f)); // Projection matrix
 
-
-        // Render player (You can load the model and bind it here)
-        // player.render(); // Example if you have a render method for the player model.
+        // Render the player
+        player.Render(shader);
 
         // Swap buffers
         window.swapBuffers();

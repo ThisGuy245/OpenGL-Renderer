@@ -8,30 +8,28 @@
 #include <fstream>
 #include <vector>
 
-struct Model
-{
+class Model {
+public:
     Model();
     Model(const std::string& _path);
-
     Model(const Model& _copy);
     Model& operator=(const Model& _assign);
     virtual ~Model();
+
+    void Draw();
 
     GLsizei vertex_count() const;
     GLuint vao_id();
 
 private:
-    struct Vertex
-    {
+    struct Vertex {
         Vertex();
-
         glm::vec3 position;
         glm::vec2 texcoord;
         glm::vec3 normal;
     };
 
-    struct Face
-    {
+    struct Face {
         Vertex a;
         Vertex b;
         Vertex c;
@@ -42,12 +40,8 @@ private:
     GLuint m_vboid;
     bool m_dirty;
 
-    void split_string_whitespace(const std::string& _input,
-        std::vector<std::string>& _output);
-
-    void split_string(const std::string& _input, char _splitter,
-        std::vector<std::string>& _output);
-
+    void split_string_whitespace(const std::string& _input, std::vector<std::string>& _output);
+    void split_string(const std::string& _input, char _splitter, std::vector<std::string>& _output);
 };
 
 #endif

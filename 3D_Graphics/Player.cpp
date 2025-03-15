@@ -1,39 +1,33 @@
-// Player.cpp
 #include "Player.h"
-#include <GL/glew.h>
-#include <glm/gtc/matrix_transform.hpp>
 
-Player::Player()
-    : position(0.0f), size(1.0f), rotationAngle(0.0f) {}
+Player::Player(const std::string& modelPath)
+    : m_position(0.0f, 0.0f, 0.0f),
+    m_rotation(0.0f, 0.0f, 0.0f),
+    m_scale(1.0f, 1.0f, 1.0f) {
 
-void Player::update() {
-    move(0.01f);  // MOVING (currently backnforth)
-    scale(1.02f); // SCALE
-    rotate(2.0f); // ROTATE
+    m_model = std::make_unique<Model>(modelPath);
 }
 
-void Player::move(float deltaTime) {
-    position.x += deltaTime;
-    if (position.x > 5.0f) position.x = -5.0f; // Simple back and forth movement
+void Player::Move(const glm::vec3& direction) {
+    m_position += direction;
 }
 
-void Player::scale(float factor) {
-    size = factor;
+void Player::Rotate(float angle, const glm::vec3& axis) {
+    m_rotation += angle * axis;
 }
 
-void Player::rotate(float angle) {
-    rotationAngle += angle;
-    if (rotationAngle >= 360.0f) rotationAngle -= 360.0f;
+void Player::SetScale(const glm::vec3& newScale) {
+    m_scale = newScale;
 }
 
-glm::mat4 Player::getTransform() const {
-    glm::mat4 transform = glm::mat4(1.0f);
-    transform = glm::translate(transform, position);
-    transform = glm::scale(transform, glm::vec3(size, size, size));
-    transform = glm::rotate(transform, glm::radians(rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f));
-    return transform;
-}
+void Player::Render(Shader& shader) {
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, m_position);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    modelMatrix = glm::scale(modelMatrix, m_scale);
 
-glm::vec3 Player::getPosition() const {
-    return position;
+    shader.setMat4("model", modelMatrix);  
+    m_model->Draw();
 }

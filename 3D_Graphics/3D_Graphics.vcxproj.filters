@@ -26,6 +26,9 @@
     <Filter Include="assets\models">
       <UniqueIdentifier>{0bfda4a7-7469-4dc3-8df3-8e87e637293c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\models\curuthers">
+      <UniqueIdentifier>{943952e6-172a-4f84-b084-2ea92503d0e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -104,6 +107,21 @@
     <None Include="basic.vert">
       <Filter>assets\shaders</Filter>
     </None>
-    <None Include="basic.frag" />
+    <None Include="basic.frag">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="assets\curuthers\curuthers.mtl">
+      <Filter>assets\models\curuthers</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="assets\curuthers\curuthers.obj">
+      <Filter>assets\models\curuthers</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\curuthers\Whiskers_diffuse.png">
+      <Filter>assets\models\curuthers</Filter>
+    </Image>
   </ItemGroup>
 </Project>
