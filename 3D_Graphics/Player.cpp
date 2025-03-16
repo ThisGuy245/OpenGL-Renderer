@@ -19,7 +19,12 @@ void Player::Render(Shader& shader) {
 
     shader.setMat4("model", modelMatrix);
 
-    m_texture->bind(); // Bind the texture before drawing
-    m_model->Draw();
-    m_texture->unbind();
+    // Bind the texture and set the shader uniform
+    m_texture->bind();  // Bind the texture
+    glActiveTexture(GL_TEXTURE0);  // Activate texture unit 0
+    shader.setInt("texture1", 0);  // Set the texture sampler uniform to texture unit 0
+
+    m_model->Draw();  // Draw the model
+
+    m_texture->unbind();  // Unbind the texture after rendering
 }
