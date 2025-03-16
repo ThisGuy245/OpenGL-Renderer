@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "InputManager.h"
 
 class Camera {
 public:
@@ -13,6 +14,8 @@ public:
     glm::mat4 getViewMatrix() const;
     glm::mat4 getProjectionMatrix(float aspectRatio) const;
 
+    void handleMovement(const InputManager& inputManager);
+    void handleMouseMovement(const InputManager& inputManager);
     void updatePosition(glm::vec3 newPosition);
     void updateOrientation(float yawOffset, float pitchOffset);
 

@@ -19,19 +19,20 @@ int SDL_main(int argc, char* argv[]) {
     const int frameDelay = 1000 / FPS;
     Uint32 frameStart = SDL_GetTicks();
 
-    // Initialise window
+    // Initialise Window
     Window window("DOOM Level", 1280, 720);
 
     // Initialise Input Manager
     InputManager::GetInstance().Initialize();
 
-    // Load shaders
+    // Load Shaders
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
-    // Initialize player with model and texture
+    // Initialise Player & Texture
     Player catModel("./assets/models/curuthers/curuthers.obj",
         "./assets/models/curuthers/Whiskers_diffuse.png");
 
+    // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
 
     glEnable(GL_CULL_FACE);
@@ -74,22 +75,9 @@ int SDL_main(int argc, char* argv[]) {
         shader.setMat4("projection", projection);
 
         // Handle player movement and rotation based on input
-        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_W)) {
-            camera.updatePosition(camera.getPosition() + camera.getFront() * 0.1f);
-        }
-        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_S)) {
-            camera.updatePosition(camera.getPosition() - camera.getFront() * 0.1f);
-        }
-        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_A)) {
-            camera.updatePosition(camera.getPosition() - camera.getRight() * 0.1f);
-        }
-        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_D)) {
-            camera.updatePosition(camera.getPosition() + camera.getRight() * 0.1f);
-        }
-        if (InputManager::GetInstance().IsMouseButtonPressed(SDL_BUTTON_RIGHT)) {
-            glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();
-            camera.updateOrientation(mouseDelta.x * 0.1f, -mouseDelta.y * 0.1f);
-        }
+        camera.handleMovement(InputManager::GetInstance());
+        camera.handleMouseMovement(InputManager::GetInstance());
+
 
         // Mouse movement for rotation (adjust sensitivity if needed)
         glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();

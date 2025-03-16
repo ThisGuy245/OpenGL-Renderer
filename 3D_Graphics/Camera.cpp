@@ -13,6 +13,28 @@ glm::mat4 Camera::getProjectionMatrix(float aspectRatio) const {
     return glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
 }
 
+void Camera::handleMovement(const InputManager& inputManager) {
+    if (inputManager.IsKeyPressed(SDL_SCANCODE_W)) {
+        updatePosition(getPosition() + getFront() * 0.1f);
+    }
+    if (inputManager.IsKeyPressed(SDL_SCANCODE_A)) {
+        updatePosition(getPosition() - getRight() * 0.1f);
+    }
+    if (inputManager.IsKeyPressed(SDL_SCANCODE_S)) {
+        updatePosition(getPosition() - getFront() * 0.1f);
+    }
+    if (inputManager.IsKeyPressed(SDL_SCANCODE_D)) {
+        updatePosition(getPosition() + getRight() * 0.1f);
+    }
+}
+
+void Camera::handleMouseMovement(const InputManager& inputManager) {
+    if (inputManager.IsMouseButtonPressed(SDL_BUTTON_RIGHT)) {
+        glm::vec2 mouseDelta = inputManager.GetMouseDelta();
+        updateOrientation(mouseDelta.x * 0.1f, -mouseDelta.y * 0.1f);
+    }
+}
+
 void Camera::updatePosition(glm::vec3 newPosition) {
     position = newPosition;
 }
