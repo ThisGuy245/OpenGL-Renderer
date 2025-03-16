@@ -19,7 +19,11 @@ public:
     glm::vec2 GetMouseDelta() const;
 
 private:
-    InputManager() = default;
+    InputManager()
+        : m_mousePosition(0.0f, 0.0f),
+        m_prevMousePosition(0.0f, 0.0f),
+        m_mouseDelta(0.0f, 0.0f)
+    {}
 
     // Store the current and previous mouse position
     std::unordered_map<SDL_Scancode, bool> m_keyStates;

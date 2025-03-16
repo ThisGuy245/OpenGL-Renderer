@@ -16,6 +16,11 @@ public:
     void updatePosition(glm::vec3 newPosition);
     void updateOrientation(float yawOffset, float pitchOffset);
 
+    // New getter functions
+    glm::vec3 getPosition() const { return position; }
+    glm::vec3 getFront() const { return front; }
+    glm::vec3 getRight() const { return right; }
+
 private:
     glm::vec3 position;
     glm::vec3 front;

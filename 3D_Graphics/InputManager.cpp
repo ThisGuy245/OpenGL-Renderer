@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "Log.h"
 
 InputManager& InputManager::GetInstance() {
     static InputManager instance;
@@ -22,6 +23,7 @@ void InputManager::HandleEvent(const SDL_Event& e) {
     switch (e.type) {
     case SDL_KEYDOWN:
         m_keyStates[e.key.keysym.scancode] = true;
+        Log::info("KEY IS DOWN!");
         break;
     case SDL_KEYUP:
         m_keyStates[e.key.keysym.scancode] = false;

@@ -10,9 +10,15 @@
 #include "Player.h"
 #include "Log.h"
 #include "Model.h"
-#include "Shader.h"
+#include "Camera.h"
 
 int SDL_main(int argc, char* argv[]) {
+
+    // Set FPS
+    const int FPS = 60;
+    const int frameDelay = 1000 / FPS;
+    Uint32 frameStart = SDL_GetTicks();
+
     // Initialise window
     Window window("DOOM Level", 1280, 720);
 
@@ -25,6 +31,8 @@ int SDL_main(int argc, char* argv[]) {
     // Initialize player with model and texture
     Player catModel("./assets/models/curuthers/curuthers.obj",
         "./assets/models/curuthers/Whiskers_diffuse.png");
+
+    Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -44,8 +52,14 @@ int SDL_main(int argc, char* argv[]) {
     // Main loop
     bool quit = false;
     while (!quit) {
-        // Poll events using Window's pollEvents method
-        window.pollEvents(quit);
+        // Poll events
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            InputManager::GetInstance().HandleEvent(event);
+            if (event.type == SDL_QUIT) {
+                quit = false;
+            }
+        }
 
         // Update input states (keyboard, mouse)
         InputManager::GetInstance().Update();
@@ -56,30 +70,30 @@ int SDL_main(int argc, char* argv[]) {
 
         // Set shader uniforms
         shader.bind();
-        shader.setMat4("view", view);
+        shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", projection);
 
         // Handle player movement and rotation based on input
         if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_W)) {
-            catModel.Move(glm::vec3(0.0f, 0.0f, -0.1f));  // Move player forward
-            Log::info("Player Moves Forwards.");
+            camera.updatePosition(camera.getPosition() + camera.getFront() * 0.1f);
         }
         if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_S)) {
-            catModel.Move(glm::vec3(0.0f, 0.0f, 0.1f));  // Move player backward
-            Log::info("Player Moves Backwards.");
+            camera.updatePosition(camera.getPosition() - camera.getFront() * 0.1f);
         }
         if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_A)) {
-            catModel.Move(glm::vec3(-0.1f, 0.0f, 0.0f)); // Move player left
-            Log::info("Player Turns Left.");
+            camera.updatePosition(camera.getPosition() - camera.getRight() * 0.1f);
         }
         if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_D)) {
-            catModel.Move(glm::vec3(0.1f, 0.0f, 0.0f));  // Move player right
-            Log::info("Player Turns Right.");
+            camera.updatePosition(camera.getPosition() + camera.getRight() * 0.1f);
+        }
+        if (InputManager::GetInstance().IsMouseButtonPressed(SDL_BUTTON_RIGHT)) {
+            glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();
+            camera.updateOrientation(mouseDelta.x * 0.1f, -mouseDelta.y * 0.1f);
         }
 
         // Mouse movement for rotation (adjust sensitivity if needed)
         glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();
-        catModel.Rotate(mouseDelta.x * 0.1f, glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate player around Y-axis
+        //catModel.Rotate(mouseDelta.x * 0.1f, glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate player around Y-axis
 
         // Render the player
         catModel.Render(shader);
@@ -91,6 +105,12 @@ int SDL_main(int argc, char* argv[]) {
 
         // Swap buffers
         window.swapBuffers();
+
+        // FPS Set
+        Uint32 frameTime = SDL_GetTicks() - frameStart;
+        if (frameTime < frameDelay) {
+            SDL_Delay(frameDelay - frameTime);
+        }
     }
     return 0;
 }
