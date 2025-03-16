@@ -3,14 +3,15 @@
 
 #include "Model.h"
 #include "Shader.h"
+#include "Texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <string>
 #include <memory>
+#include <string>
 
 class Player {
 public:
-    Player(const std::string& modelPath);
+    Player(const std::string& modelPath, const std::string& texturePath);
 
     void Move(const glm::vec3& direction);
     void Rotate(float angle, const glm::vec3& axis);
@@ -23,8 +24,9 @@ public:
 
 private:
     std::unique_ptr<Model> m_model;
+    std::unique_ptr<Texture> m_texture;
     glm::vec3 m_position;
-    glm::vec3 m_rotation; // X, Y, Z rotation in degrees
+    glm::vec3 m_rotation;
     glm::vec3 m_scale;
 };
 

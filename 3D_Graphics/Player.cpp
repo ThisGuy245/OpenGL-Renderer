@@ -1,23 +1,12 @@
 #include "Player.h"
 
-Player::Player(const std::string& modelPath)
+Player::Player(const std::string& modelPath, const std::string& texturePath)
     : m_position(0.0f, 0.0f, 0.0f),
     m_rotation(0.0f, 0.0f, 0.0f),
     m_scale(1.0f, 1.0f, 1.0f) {
 
     m_model = std::make_unique<Model>(modelPath);
-}
-
-void Player::Move(const glm::vec3& direction) {
-    m_position += direction;
-}
-
-void Player::Rotate(float angle, const glm::vec3& axis) {
-    m_rotation += angle * axis;
-}
-
-void Player::SetScale(const glm::vec3& newScale) {
-    m_scale = newScale;
+    m_texture = std::make_unique<Texture>(texturePath);
 }
 
 void Player::Render(Shader& shader) {
@@ -28,6 +17,9 @@ void Player::Render(Shader& shader) {
     modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     modelMatrix = glm::scale(modelMatrix, m_scale);
 
-    shader.setMat4("model", modelMatrix);  
+    shader.setMat4("model", modelMatrix);
+
+    m_texture->bind(); // Bind the texture before drawing
     m_model->Draw();
+    m_texture->unbind();
 }
