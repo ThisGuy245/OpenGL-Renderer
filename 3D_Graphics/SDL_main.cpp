@@ -1,18 +1,23 @@
-#include "Window.h"
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/ext.hpp>
 
+#include "Window.h"
+#include "InputManager.h"
 #include "Shader.h"
 #include "Player.h"
 #include "Log.h"
 #include "Model.h"
+#include "Shader.h"
 
 int SDL_main(int argc, char* argv[]) {
-    // Initialize window
+    // Initialise window
     Window window("DOOM Level", 1280, 720);
+
+    // Initialise Input Manager
+    InputManager::GetInstance().Initialize();
 
     // Load shaders
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
@@ -34,10 +39,16 @@ int SDL_main(int argc, char* argv[]) {
         1280.0f / 720.0f,    // Aspect ratio
         0.1f, 100.0f);       // Near & far plane
 
+    Log::info("Application Started");
+
     // Main loop
     bool quit = false;
     while (!quit) {
+        // Poll events using Window's pollEvents method
         window.pollEvents(quit);
+
+        // Update input states (keyboard, mouse)
+        InputManager::GetInstance().Update();
 
         // Clear the screen (background color)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -47,6 +58,28 @@ int SDL_main(int argc, char* argv[]) {
         shader.bind();
         shader.setMat4("view", view);
         shader.setMat4("projection", projection);
+
+        // Handle player movement and rotation based on input
+        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_W)) {
+            catModel.Move(glm::vec3(0.0f, 0.0f, -0.1f));  // Move player forward
+            Log::info("Player Moves Forwards.");
+        }
+        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_S)) {
+            catModel.Move(glm::vec3(0.0f, 0.0f, 0.1f));  // Move player backward
+            Log::info("Player Moves Backwards.");
+        }
+        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_A)) {
+            catModel.Move(glm::vec3(-0.1f, 0.0f, 0.0f)); // Move player left
+            Log::info("Player Turns Left.");
+        }
+        if (InputManager::GetInstance().IsKeyPressed(SDL_SCANCODE_D)) {
+            catModel.Move(glm::vec3(0.1f, 0.0f, 0.0f));  // Move player right
+            Log::info("Player Turns Right.");
+        }
+
+        // Mouse movement for rotation (adjust sensitivity if needed)
+        glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();
+        catModel.Rotate(mouseDelta.x * 0.1f, glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate player around Y-axis
 
         // Render the player
         catModel.Render(shader);

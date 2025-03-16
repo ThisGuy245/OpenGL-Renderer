@@ -7,10 +7,15 @@ InputManager& InputManager::GetInstance() {
 
 void InputManager::Initialize() {
     SDL_StartTextInput();  // Start text input for handling text input events
+    m_prevMousePosition = glm::vec2(0.0f, 0.0f); // Initialize previous mouse position
 }
 
 void InputManager::Update() {
-    // Handle ongoing input processing here, if needed
+    // Update mouse delta
+    m_mouseDelta = m_mousePosition - m_prevMousePosition;
+
+    // Update the previous mouse position for the next frame
+    m_prevMousePosition = m_mousePosition;
 }
 
 void InputManager::HandleEvent(const SDL_Event& e) {
@@ -47,4 +52,8 @@ bool InputManager::IsMouseButtonPressed(Uint8 button) const {
 
 glm::vec2 InputManager::GetMousePosition() const {
     return m_mousePosition;
+}
+
+glm::vec2 InputManager::GetMouseDelta() const {
+    return m_mouseDelta;  // Return the calculated mouse delta
 }
