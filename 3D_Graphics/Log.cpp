@@ -1,7 +1,7 @@
 #include "Log.h"
 
-// Initialize the static log file stream
-std::ofstream Log::logFile("log.txt", std::ios::out | std::ios::app);  // Open file for appending
+// Open file for appending
+std::ofstream Log::logFile("C:\\Users\\thoma\\source\\repos\\3D_Graphics\\3D_Graphics\\assets\\log.txt", std::ios::out | std::ios::app); 
 
 void Log::info(const std::string& message) {
     if (logFile.is_open()) {
