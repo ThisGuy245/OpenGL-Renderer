@@ -14,9 +14,6 @@
     <Filter Include="src\game">
       <UniqueIdentifier>{87bcdbc0-4d08-401b-941a-dc25f3924130}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\utils">
-      <UniqueIdentifier>{ef54ac12-7eeb-4b43-a16a-ace7589ae99f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{e9352ab3-a65c-49de-a985-ede406e2244c}</UniqueIdentifier>
     </Filter>
@@ -28,6 +25,9 @@
     </Filter>
     <Filter Include="src\physics">
       <UniqueIdentifier>{74448375-6eec-400f-8bc2-24f64d27fa7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\outer">
+      <UniqueIdentifier>{ef54ac12-7eeb-4b43-a16a-ace7589ae99f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +56,7 @@
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>src\utils</Filter>
+      <Filter>src\outer</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>src\game</Filter>
@@ -74,7 +74,13 @@
       <Filter>src\physics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>src\utils</Filter>
+      <Filter>src\outer</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitives.cpp">
+      <Filter>src\outer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>src\outer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,13 +112,13 @@
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>src\utils</Filter>
+      <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>src\game</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>src\utils</Filter>
+      <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
       <Filter>src\physics</Filter>
@@ -122,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="CollisionDetector.h">
       <Filter>src\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives.h">
+      <Filter>src\outer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>src\outer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

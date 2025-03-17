@@ -139,9 +139,11 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionDetector.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SDL_main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -156,12 +158,14 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionDetector.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Primitives.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Shader.h" />
