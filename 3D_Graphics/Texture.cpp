@@ -24,7 +24,7 @@ Texture::~Texture() {
     }
 }
 
-void Texture::bind() {  //  Added bind()
+void Texture::bind() const{  //  Added bind()
     if (!m_id) {
         glGenTextures(1, &m_id);
         if (!m_id) {

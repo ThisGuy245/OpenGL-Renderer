@@ -2,7 +2,9 @@
 #include "Texture.h"
 
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture& texture)
+Mesh::Mesh(const std::vector<Vertex>& vertices,
+    const std::vector<unsigned int>& indices,
+    const Texture& texture) // Change to const reference
     : texture(texture), indexCount(indices.size()) {
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);

@@ -10,17 +10,17 @@ public:
     Texture(const std::string& path);
     ~Texture();
 
-    void bind();
+    void bind() const;
     void unbind() const;
     GLuint getID() const;
 
 private:
     std::vector<unsigned char> m_data;
-    GLuint m_id;
+    mutable GLuint m_id;
     int m_width;
     int m_height;
     int m_channels;
-    bool m_dirty;
+    mutable bool m_dirty;
 };
 
 #endif

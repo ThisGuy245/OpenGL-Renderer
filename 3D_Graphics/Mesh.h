@@ -14,16 +14,16 @@ struct Vertex {
 
 class Mesh {
 public:
-    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, Texture& texture);
+    Mesh(const std::vector<Vertex>& vertices,
+        const std::vector<unsigned int>& indices,
+        const Texture& texture); 
     ~Mesh();
 
     void draw() const;
 
 private:
-    GLuint vao;
-    GLuint vbo;
-    GLuint ebo;
-    Texture& texture;
+    GLuint vao, vbo, ebo;
+    const Texture& texture; 
     size_t indexCount;
 };
 
