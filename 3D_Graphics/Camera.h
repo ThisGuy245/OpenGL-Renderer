@@ -26,10 +26,10 @@ public:
 
 private:
     glm::vec3 position;
-    glm::vec3 front;
-    glm::vec3 up;
-    glm::vec3 right;
-    glm::vec3 worldUp;
+    glm::vec3 front; // C'est la direction "tout droit" pour le caméra
+    glm::vec3 up; // C'est la direction "du haut" pour le caméra
+    glm::vec3 right; // C'est la direction "à côté" pour le caméra
+    glm::vec3 worldUp; // Garde la direction "Vers le haut" dans l'univers du Jeu
 
     float yaw;
     float pitch;
