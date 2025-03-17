@@ -82,6 +82,12 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>src\outer</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>src\outer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -133,6 +139,12 @@
       <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>src\outer</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>src\outer</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
       <Filter>src\outer</Filter>
     </ClInclude>
   </ItemGroup>
