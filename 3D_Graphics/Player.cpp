@@ -33,6 +33,15 @@ void Player::Render(Shader& shader) {
     m_texture->unbind();
 }
 
+void Player::Update() {
+    float deltaTime = 0.016f; // Assuming 60 FPS, you can calculate this dynamically
+    float rotationSpeed = 2.0f; // Degrees per second
+
+    // Increment rotation smoothly over time
+    m_rotation.y += rotationSpeed * deltaTime;
+}
+
+
 void Player::Move(const glm::vec3& direction) {
     m_position += direction;  // Move the player by the direction vector
 }

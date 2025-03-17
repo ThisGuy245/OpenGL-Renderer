@@ -2,7 +2,7 @@
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : position(position), worldUp(up), yaw(yaw), pitch(pitch) {
-    updateVectors();
+    updateVectors(); 
 }
 
 glm::mat4 Camera::getViewMatrix() const {
@@ -27,6 +27,7 @@ void Camera::handleMovement(const InputManager& inputManager) {
         updatePosition(getPosition() + getRight() * 0.1f);
     }
 }
+
 
 void Camera::handleMouseMovement(const InputManager& inputManager) {
     if (inputManager.IsMouseButtonPressed(SDL_BUTTON_RIGHT)) {
@@ -59,3 +60,4 @@ void Camera::updateVectors() {
     right = glm::normalize(glm::cross(front, worldUp));
     up = glm::normalize(glm::cross(right, front));
 }
+

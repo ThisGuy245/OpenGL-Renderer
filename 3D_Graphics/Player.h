@@ -18,6 +18,8 @@ public:
     void SetScale(const glm::vec3& newScale);
     void Render(Shader& shader);
 
+    void Update();
+
     glm::vec3 getPosition() const { return m_position; }
     glm::vec3 getRotation() const { return m_rotation; }
     glm::vec3 getScale() const { return m_scale; }

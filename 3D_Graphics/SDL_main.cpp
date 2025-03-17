@@ -70,7 +70,7 @@ int SDL_main(int argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set shader uniforms
-        shader.bind();
+        shader.use();
         shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", projection);
 
@@ -78,12 +78,8 @@ int SDL_main(int argc, char* argv[]) {
         camera.handleMovement(InputManager::GetInstance());
         camera.handleMouseMovement(InputManager::GetInstance());
 
-
-        // Mouse movement for rotation (adjust sensitivity if needed)
-        glm::vec2 mouseDelta = InputManager::GetInstance().GetMouseDelta();
-        //catModel.Rotate(mouseDelta.x * 0.1f, glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate player around Y-axis
-
         // Render the player
+        catModel.Update();
         catModel.Render(shader);
 
         // Reset the state
