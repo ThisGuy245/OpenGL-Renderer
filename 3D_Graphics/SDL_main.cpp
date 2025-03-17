@@ -34,7 +34,6 @@ int SDL_main(int argc, char* argv[]) {
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
-
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -74,7 +73,7 @@ int SDL_main(int argc, char* argv[]) {
         shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", projection);
 
-        // Handle player movement and rotation based on input
+        // Handle camera movement and rotation based on input
         camera.handleMovement(InputManager::GetInstance());
         camera.handleMouseMovement(InputManager::GetInstance());
 

@@ -26,6 +26,9 @@
     <Filter Include="assets\shaders">
       <UniqueIdentifier>{9c0fa029-3f25-4971-b85b-8ff83fd684ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\physics">
+      <UniqueIdentifier>{74448375-6eec-400f-8bc2-24f64d27fa7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -60,6 +63,15 @@
     </ClCompile>
     <ClCompile Include="SDL_main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>src\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>src\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetector.cpp">
+      <Filter>src\physics</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>src\utils</Filter>
@@ -101,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>src\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>src\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetector.h">
+      <Filter>src\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

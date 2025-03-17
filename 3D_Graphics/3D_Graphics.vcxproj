@@ -138,8 +138,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SDL_main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -152,12 +155,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexArray.h" />
