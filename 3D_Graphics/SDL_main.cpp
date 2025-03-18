@@ -10,6 +10,8 @@
 #include "Player.h"
 #include "Log.h"
 #include "Model.h"
+#include "Mesh.h"
+#include "Primitives.h"
 #include "Camera.h"
 
 int SDL_main(int argc, char* argv[]) {
@@ -80,6 +82,12 @@ int SDL_main(int argc, char* argv[]) {
         // Render the player
         catModel.Update();
         catModel.Render(shader);
+
+        /* - How to render a Primitive Object
+        Texture defaultTexture("path/to/texture.png");
+        Mesh cube = Primitives::CreateCube(1.0f, defaultTexture);
+        cube.draw(); // Renders with the default texture
+        */
 
         // Reset the state
         glBindVertexArray(0);
