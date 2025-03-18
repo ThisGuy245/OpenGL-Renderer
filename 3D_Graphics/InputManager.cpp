@@ -23,7 +23,6 @@ void InputManager::HandleEvent(const SDL_Event& e) {
     switch (e.type) {
     case SDL_KEYDOWN:
         m_keyStates[e.key.keysym.scancode] = true;
-        Log::info("KEY IS DOWN!");
         break;
     case SDL_KEYUP:
         m_keyStates[e.key.keysym.scancode] = false;
@@ -57,5 +56,5 @@ glm::vec2 InputManager::GetMousePosition() const {
 }
 
 glm::vec2 InputManager::GetMouseDelta() const {
-    return m_mouseDelta;  // Return the calculated mouse delta
+    return m_mouseDelta; 
 }

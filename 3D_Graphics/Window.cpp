@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <stdexcept>
+#include "Log.h"
 
 Window::Window(const std::string& title, int width, int height)
     : width(width), height(height) {
@@ -19,6 +20,11 @@ Window::Window(const std::string& title, int width, int height)
     glContext = SDL_GL_CreateContext(window);
     if (!glContext) {
         throw std::runtime_error("Failed to create OpenGL context");
+    }
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR) {
+        Log::info("OpenGL Error after context creation: ");
     }
 
     if (glewInit() != GLEW_OK) {
