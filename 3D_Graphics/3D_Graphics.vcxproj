@@ -184,6 +184,7 @@
     <None Include="assets\shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\3D_Graphics\3D_Graphics\assets\models\curuthers\default.png" />
     <Image Include="assets\models\curuthers\Whiskers_diffuse.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

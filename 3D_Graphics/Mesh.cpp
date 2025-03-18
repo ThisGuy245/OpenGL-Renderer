@@ -9,7 +9,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices,
 
     if (texture.getID() == 0) {
         Log::info("Error: Texture has an invalid ID!");
-        return; // Avoid initializing Mesh if texture is invalid
+        return;
     }
 
     glGenVertexArrays(1, &vao);

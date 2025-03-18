@@ -163,5 +163,8 @@
     <Image Include="assets\models\curuthers\Whiskers_diffuse.png">
       <Filter>assets\models</Filter>
     </Image>
+    <Image Include="..\..\..\3D_Graphics\3D_Graphics\assets\models\curuthers\default.png">
+      <Filter>assets\models</Filter>
+    </Image>
   </ItemGroup>
 </Project>

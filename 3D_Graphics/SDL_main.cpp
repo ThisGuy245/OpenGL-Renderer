@@ -26,7 +26,7 @@ int SDL_main(int argc, char* argv[]) {
 
     Log::info("Application Commencé");
     // Load the default texture
-    //Texture defaultTexture;
+    Texture defaultTexture("assets/models/default.png");
 
     // Initialise Window
     Window window("DOOM Level", 1280, 720);
@@ -35,7 +35,7 @@ int SDL_main(int argc, char* argv[]) {
     Scene scene;
 
     // Initialise LevelLoader
-    //LevelLoader::loadDefaultLevel(scene, defaultTexture);
+    LevelLoader::loadDefaultLevel(scene, defaultTexture);
 
     // Initialise Input Manager
     InputManager::GetInstance().Initialize();
@@ -44,17 +44,18 @@ int SDL_main(int argc, char* argv[]) {
     Shader shader("assets/shaders/basic.vert", "assets/shaders/basic.frag");
 
     // Create a Cube
-    /*
+    
     Mesh* cubeMesh = new Mesh(Primitives::CreateCube(1.0f, defaultTexture));
     GameObject cube(cubeMesh);
     cube.setPosition(glm::vec3(2.0f, 0.5f, 0.0f)); // Position the cube
-    scene.addObject(cube);*/
+    scene.addObject(cube);
 
     // Initialise Player Model
+    /*
     Player playerModel("assets/models/curuthers/curuthers.obj",
         "assets/models/curuthers/Whiskers_diffuse.png");
     playerModel.setPosition(glm::vec3(-2.0f, 0.0f, 0.0f)); // Position the player
-    scene.addObject(playerModel);
+    scene.addObject(playerModel);*/
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
