@@ -1,7 +1,6 @@
 #include "Mesh.h"
 #include "Texture.h"
 
-
 Mesh::Mesh(const std::vector<Vertex>& vertices,
     const std::vector<unsigned int>& indices,
     const Texture& texture) // Change to const reference
@@ -37,7 +36,7 @@ Mesh::~Mesh() {
 }
 
 void Mesh::draw() const {
-    texture.bind();  // No change needed here
+    texture.bind(); // Ensure it doesn't crash
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

@@ -1,13 +1,17 @@
-// Scene.h
-#pragma once
+#ifndef SCENE_H
+#define SCENE_H
+
 #include <vector>
 #include "GameObject.h"
 
 class Scene {
 public:
-    std::vector<GameObject> objects;
+    void addObject(GameObject& object);
+    void update(float deltaTime);
+    void render(const Shader& shader, const glm::mat4& view, const glm::mat4& projection) const;
 
-    void AddObject(const GameObject& object);
-    void Update(float deltaTime);
-    void Render(Shader& shader);
+private:
+    std::vector<GameObject*> objects;
 };
+
+#endif // SCENE_H

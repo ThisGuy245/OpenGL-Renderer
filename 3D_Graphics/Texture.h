@@ -5,9 +5,12 @@
 #include <string>
 #include <vector>
 
+// Texture.h
+
 class Texture {
 public:
-    Texture(const std::string& path);
+    Texture(const std::string& path); // Existing constructor
+    Texture(); // New constructor for default texture
     ~Texture();
 
     void bind() const;
@@ -22,5 +25,6 @@ private:
     int m_channels;
     mutable bool m_dirty;
 };
+
 
 #endif

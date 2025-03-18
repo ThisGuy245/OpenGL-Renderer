@@ -18,13 +18,24 @@ Texture::Texture(const std::string& path)
     m_dirty = true;
 }
 
+
+Texture::Texture()
+    : m_id(0), m_width(1), m_height(1), m_channels(4), m_dirty(false) {
+
+    // Create a 1x1 white texture (RGBA: 255, 255, 255, 255)
+    m_data = { 255, 255, 255, 255 };
+
+    m_dirty = true;
+}
+
+
 Texture::~Texture() {
     if (m_id) {
         glDeleteTextures(1, &m_id);
     }
 }
 
-void Texture::bind() const{  //  Added bind()
+void Texture::bind() const {  //  Added bind()
     if (!m_id) {
         glGenTextures(1, &m_id);
         if (!m_id) {

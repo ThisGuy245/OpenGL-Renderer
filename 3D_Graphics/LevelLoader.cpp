@@ -1,22 +1,22 @@
-// LevelLoader.cpp
 #include "LevelLoader.h"
-#include "GameObject.h"
-/*
-Scene LevelLoader::LoadDefaultLevel() {
-    Scene scene;
+#include "Primitives.h"
 
+void LevelLoader::loadDefaultLevel(Scene& scene, const Texture& defaultTexture) {
     // Create a ground plane
-    Mesh groundMesh = Primitives::CreatePlane(10.0f, 10.0f);
-    RigidBody groundBody(/* mass, position, etc. /);
-    GameObject ground(groundMesh, groundBody);
-    scene.AddObject(ground);
+    Mesh* groundMesh = new Mesh(Primitives::CreatePlane(10.0f, 10.0f, defaultTexture));
+    GameObject ground(groundMesh);
+    ground.setPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+    scene.addObject(ground);
 
     // Create a cube
-    Mesh cubeMesh = Primitives::CreateCube(1.0f);
-    RigidBody cubeBody(/* mass, position, etc. /);
-    GameObject cube(cubeMesh, cubeBody);
-    scene.AddObject(cube);
+    Mesh* cubeMesh = new Mesh(Primitives::CreateCube(1.0f, defaultTexture));
+    GameObject cube(cubeMesh);
+    cube.setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+    scene.addObject(cube);
 
-    return scene;
+    // Create a sphere
+    Mesh* sphereMesh = new Mesh(Primitives::CreateSphere(1.0f, 32, defaultTexture));
+    GameObject sphere(sphereMesh);
+    sphere.setPosition(glm::vec3(2.0f, 1.0f, 0.0f));
+    scene.addObject(sphere);
 }
-*/
