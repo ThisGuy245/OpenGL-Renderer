@@ -1,17 +1,18 @@
-#ifndef SCENE_H
-#define SCENE_H
-
+#pragma once
 #include <vector>
+#include <memory>
 #include "GameObject.h"
+#include "CameraComponent.h"
 
 class Scene {
 public:
-    void addObject(GameObject& object);
-    void update(float deltaTime);
-    void render(const Shader& shader, const glm::mat4& view, const glm::mat4& projection) const;
+    void AddGameObject(std::unique_ptr<GameObject> obj);
+    void Update();
+    void Render(Shader& shader);
+    CameraComponent* GetMainCamera() const { return mainCamera; }
+    void SetMainCamera(CameraComponent* camera) { mainCamera = camera; }
 
 private:
-    std::vector<GameObject*> objects;
+    std::vector<std::unique_ptr<GameObject>> gameObjects;
+    CameraComponent* mainCamera = nullptr;
 };
-
-#endif // SCENE_H

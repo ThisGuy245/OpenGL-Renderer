@@ -1,17 +1,11 @@
 #include "Mesh.h"
 #include "Texture.h"
-#include "Log.h"
+
 
 Mesh::Mesh(const std::vector<Vertex>& vertices,
     const std::vector<unsigned int>& indices,
-    const Texture& texture)
+    const Texture& texture) // Change to const reference
     : texture(texture), indexCount(indices.size()) {
-
-    if (texture.getID() == 0) {
-        Log::info("Error: Texture has an invalid ID!");
-        return;
-    }
-
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glGenBuffers(1, &ebo);
@@ -36,7 +30,6 @@ Mesh::Mesh(const std::vector<Vertex>& vertices,
 }
 
 
-
 Mesh::~Mesh() {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
@@ -44,7 +37,7 @@ Mesh::~Mesh() {
 }
 
 void Mesh::draw() const {
-    texture.bind();
+    texture.bind();  // No change needed here
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

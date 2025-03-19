@@ -16,14 +16,14 @@ class Mesh {
 public:
     Mesh(const std::vector<Vertex>& vertices,
         const std::vector<unsigned int>& indices,
-        const Texture& texture); 
+        const Texture& texture);
     ~Mesh();
 
     void draw() const;
 
 private:
     GLuint vao, vbo, ebo;
-    const Texture& texture; 
+    const Texture& texture;
     size_t indexCount;
 };
 

@@ -1,13 +1,9 @@
-#ifndef LEVELLOADER_H
-#define LEVELLOADER_H
-
+// LevelLoader.h
+#pragma once
 #include "Scene.h"
-#include "Mesh.h"
-#include "Texture.h"
+#include "Primitives.h"
 
 class LevelLoader {
 public:
-    static void loadDefaultLevel(Scene& scene, const Texture& defaultTexture);
+    static Scene LoadDefaultLevel();
 };
-
-#endif // LEVELLOADER_H

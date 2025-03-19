@@ -5,12 +5,9 @@
 #include <string>
 #include <vector>
 
-// Texture.h
-
 class Texture {
 public:
     Texture(const std::string& path);
-    void createDefaultTexture();
     ~Texture();
 
     void bind() const;
@@ -26,20 +23,4 @@ private:
     mutable bool m_dirty;
 };
 
-
 #endif
-
-/*
-void Texture::unbind() const {
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-GLuint Texture::getID() const {
-    return m_id;
-}
-Texture::~Texture() {
-    if (m_id) {
-        glDeleteTextures(1, &m_id);
-    }
-}
-*/
