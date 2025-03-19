@@ -100,9 +100,6 @@
     <ClCompile Include="ModelComponent.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
