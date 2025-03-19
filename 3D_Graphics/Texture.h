@@ -3,11 +3,13 @@
 
 #include <GL/glew.h>
 #include <string>
-#include <vector>
+#include <iostream>
 
 class Texture {
 public:
     Texture(const std::string& path);
+    Texture(Texture&& other) noexcept; // Move constructor
+    Texture& operator=(Texture&& other) noexcept; // Move assignment operator
     ~Texture();
 
     void bind() const;
@@ -15,12 +17,10 @@ public:
     GLuint getID() const;
 
 private:
-    std::vector<unsigned char> m_data;
-    mutable GLuint m_id;
+    GLuint m_id;
     int m_width;
     int m_height;
     int m_channels;
-    mutable bool m_dirty;
 };
 
-#endif
+#endif // TEXTURE_H

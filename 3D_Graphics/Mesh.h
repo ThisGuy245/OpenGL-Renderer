@@ -8,22 +8,24 @@
 
 struct Vertex {
     glm::vec3 position;
+    glm::vec3 normal;  // Added for future lighting support
     glm::vec2 texCoords;
 };
-
 
 class Mesh {
 public:
     Mesh(const std::vector<Vertex>& vertices,
         const std::vector<unsigned int>& indices,
-        const Texture& texture);
+        Texture texture); // Pass texture by value
     ~Mesh();
 
     void draw() const;
+    void bind() const;  // Added for explicit VAO binding
+    void unbind() const; // Added for explicit VAO unbinding
 
 private:
     GLuint vao, vbo, ebo;
-    const Texture& texture;
+    Texture texture; // Store texture as a value instead of a reference
     size_t indexCount;
 };
 

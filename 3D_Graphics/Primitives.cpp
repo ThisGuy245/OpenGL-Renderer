@@ -7,8 +7,9 @@
 #include "Mesh.h"
 
 constexpr float pi = 3.14159265358979323846f;
+/*
 
-Mesh Primitives::CreateCube(float size, const Texture& defaultTexture) {
+Mesh Primitives::CreateCube(float size, Texture defaultTexture) {
 
     std::vector<Vertex> vertices = {
 
@@ -54,7 +55,7 @@ Mesh Primitives::CreateCube(float size, const Texture& defaultTexture) {
 
 }
 
-Mesh Primitives::CreateSphere(float radius, int segments, const Texture& defaultTexture) {
+Mesh Primitives::CreateSphere(float radius, int segments, Texture defaultTexture) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
@@ -95,7 +96,7 @@ Mesh Primitives::CreateSphere(float radius, int segments, const Texture& default
     return Mesh(vertices, indices, defaultTexture);
 }
 
-Mesh Primitives::CreatePlane(float width, float height, const Texture& defaultTexture) {
+Mesh Primitives::CreatePlane(float width, float height, Texture defaultTexture) {
     // Define the 4 vertices of the plane
     std::vector<Vertex> vertices = {
         { { -width / 2, 0.0f, -height / 2 }, { 0.0f, 0.0f } }, // Bottom-left
@@ -110,4 +111,4 @@ Mesh Primitives::CreatePlane(float width, float height, const Texture& defaultTe
     };
 
     return Mesh(vertices, indices, defaultTexture);
-}
+}*/

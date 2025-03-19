@@ -5,9 +5,9 @@
 
 class Primitives {
 public:
-    static Mesh CreateCube(float size, const Texture& defaultTexture);
-    static Mesh CreateSphere(float radius, int segments, const Texture& defaultTexture);
-    static Mesh CreatePlane(float width, float height, const Texture& defaultTexture);
+    static Mesh CreateCube(float size, Texture defaultTexture);
+    static Mesh CreateSphere(float radius, int segments, Texture defaultTexture);
+    static Mesh CreatePlane(float width, float height, Texture defaultTexture);
 };
 
 #endif

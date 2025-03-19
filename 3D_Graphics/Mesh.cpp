@@ -1,11 +1,10 @@
 #include "Mesh.h"
-#include "Texture.h"
-
 
 Mesh::Mesh(const std::vector<Vertex>& vertices,
     const std::vector<unsigned int>& indices,
-    const Texture& texture) // Change to const reference
-    : texture(texture), indexCount(indices.size()) {
+    Texture texture) // Pass texture by value
+    : texture(std::move(texture)), indexCount(indices.size()) {
+
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glGenBuffers(1, &ebo);
@@ -22,24 +21,35 @@ Mesh::Mesh(const std::vector<Vertex>& vertices,
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Texture coordinate attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
+    // Normal attribute (added for future lighting support)
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
     glEnableVertexAttribArray(1);
+
+    // Texture coordinate attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }
 
-
 Mesh::~Mesh() {
-    glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
+    glDeleteVertexArrays(1, &vao);
 }
 
 void Mesh::draw() const {
-    texture.bind();  // No change needed here
-    glBindVertexArray(vao);
-    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    texture.bind();  // Bind the texture
+    bind();         // Bind the VAO
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexCount), GL_UNSIGNED_INT, 0);
+    unbind();       // Unbind the VAO
+    texture.unbind(); // Unbind the texture
 }
 
+void Mesh::bind() const {
+    glBindVertexArray(vao);
+}
+
+void Mesh::unbind() const {
+    glBindVertexArray(0);
+}
