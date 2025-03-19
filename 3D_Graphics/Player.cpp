@@ -5,10 +5,7 @@ Player::Player(const std::string& modelPath, const std::string& texturePath)
     m_rotation(0.0f, 0.0f, 0.0f),
     m_scale(1.0f, 1.0f, 1.0f) {
     m_model = std::make_unique<Model>(modelPath);
-    m_texture = std::make_shared<Texture>(texturePath);
-
-    // Pass the texture to the model (if the Model class supports it)
-    m_model->SetTexture(m_texture);
+    m_texture = std::make_shared<Texture>(texturePath, TextureType::DIFFUSE); // Add TextureType argument
 }
 
 void Player::Render(Shader& shader) {

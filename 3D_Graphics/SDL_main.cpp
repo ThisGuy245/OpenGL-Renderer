@@ -19,16 +19,16 @@ int SDL_main(int argc, char* argv[]) {
     const int frameDelay = 1000 / FPS;
     
 
-    // Initialise Window
+    // Initialise Window - Initialise Fenetre
     Window window("DOOM Level", 1280, 720);
 
-    // Initialise Input Manager
+    // Initialise Input Manager - Entrée de Donées
     InputManager::GetInstance().Initialize();
 
-    // Load Shaders
+    // Load Shaders - Charger Ombreurs
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
-    // Initialise Player & Texture
+    // Initialise Player & Texture - Jouer et Textures
     Player catModel("./assets/models/curuthers/curuthers.obj",
         "./assets/models/curuthers/Whiskers_diffuse.png");
 
@@ -38,7 +38,7 @@ int SDL_main(int argc, char* argv[]) {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    // Define camera matrices
+    // Define camera matrices - Les vue ports et projections
     glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 1.0f, 5.0f), // Camera position
         glm::vec3(0.0f, 0.0f, 0.0f), // Look-at point
         glm::vec3(0.0f, 1.0f, 0.0f)); // Up direction
@@ -52,7 +52,7 @@ int SDL_main(int argc, char* argv[]) {
     // Main loop
     bool quit = false;
     while (!quit) {
-        // Poll events
+        // Poll events - Evenements de managiere d'entrées
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             InputManager::GetInstance().HandleEvent(event);
@@ -67,11 +67,11 @@ int SDL_main(int argc, char* argv[]) {
         // Update input states (keyboard, mouse)
         InputManager::GetInstance().Update();
 
-        // Clear the screen (background color)
+        // Clear the screen (Couleur d'arriere plan)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Set shader uniforms
+        // Set shader uniforms - ombreurs
         shader.use();
         shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", projection);

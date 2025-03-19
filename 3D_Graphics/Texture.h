@@ -17,14 +17,18 @@ public:
     Texture(const std::string& path, TextureType type, bool srgb = false);
     ~Texture();
 
+    // Disable copy semantics
+    Texture(const Texture&) = delete;
+    Texture& operator=(const Texture&) = delete;
+
+    // Enable move semantics
+    Texture(Texture&& other) noexcept;
+    Texture& operator=(Texture&& other) noexcept;
+
     void bind(GLuint unit = 0) const;
     void unbind() const;
     GLuint getID() const;
     TextureType getType() const;
-
-    // Move semantics
-    Texture(Texture&& other) noexcept;
-    Texture& operator=(Texture&& other) noexcept;
 
 private:
     GLuint m_id;

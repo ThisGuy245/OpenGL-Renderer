@@ -3,26 +3,19 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+
 #include <string>
 #include <fstream>
 #include <vector>
-#include <memory>
-#include <stdexcept>
-#include <iostream>
-
-class Texture; // Forward declaration
 
 class Model {
 public:
     Model();
-    Model(const std::string& path);
-    Model(const Model& other); // Copy constructor
-    Model(Model&& other) noexcept; // Move constructor
-    Model& operator=(const Model& other); // Copy assignment operator
-    Model& operator=(Model&& other) noexcept; // Move assignment operator
-    ~Model();
+    Model(const std::string& _path);
+    Model(const Model& _copy);
+    Model& operator=(const Model& _assign);
+    virtual ~Model();
 
-    void SetTexture(std::shared_ptr<Texture> texture);
     void Draw();
 
     GLsizei vertex_count() const;
@@ -47,13 +40,10 @@ private:
     GLuint m_vboid;
     bool m_dirty;
 
-    std::shared_ptr<Texture> m_texture;
-
-    void split_string_whitespace(const std::string& input, std::vector<std::string>& output);
-    void split_string(const std::string& input, char splitter, std::vector<std::string>& output);
+    void split_string_whitespace(const std::string& _input, std::vector<std::string>& _output);
+    void split_string(const std::string& _input, char _splitter, std::vector<std::string>& _output);
 };
 
-#endif // MODEL_H
 #include <stdexcept>
 
 inline Model::Model()
@@ -326,10 +316,6 @@ inline void Model::Draw()
     glBindVertexArray(vao_id());
     glDrawArrays(GL_TRIANGLES, 0, vertex_count());
     glBindVertexArray(0);
-}
-
-inline void Model::SetTexture(std::shared_ptr<Texture> texture) {
-    m_texture = texture;
 }
 
 
