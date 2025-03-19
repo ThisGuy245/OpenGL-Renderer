@@ -14,27 +14,16 @@ class Shader;
 // GameObject.h
 class GameObject {
 public:
-    GameObject(Mesh* mesh, Shader* shader, Texture* texture)
-        : mesh(mesh), shader(shader), texture(texture) {
-        transform = Transform();  // Default Transform
-    }
+    GameObject(Mesh* mesh, Shader* shader, Texture* texture);
+    void Update(float deltaTime);
+    void Draw(Renderer& renderer);
 
-    void Update(float deltaTime) {
-        // You can apply transformations here
-    }
-
-    void Draw(Renderer& renderer) {
-        // Bind the shader and texture before drawing the mesh
-        shader->use();
-        texture->bind();
-        mesh->draw();
-    }
-
-    Transform transform;  // Stores position, rotation, scale
+    Transform transform;
 private:
     Mesh* mesh;
     Shader* shader;
     Texture* texture;
 };
+
 
 #endif

@@ -144,7 +144,6 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Log.cpp" />
-    <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -169,7 +168,6 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Primitives.h" />
