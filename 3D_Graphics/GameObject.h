@@ -4,43 +4,37 @@
 
 #include <glm/glm.hpp>
 #include <string>
+#include "Renderer.h"
+#include "Transform.h"
 
 class Mesh;
 class Texture;
 class Shader;
 
+// GameObject.h
 class GameObject {
 public:
-    // Constructor
-    GameObject(Mesh* mesh, Texture* texture, Shader* shader);
+    GameObject(Mesh* mesh, Shader* shader, Texture* texture)
+        : mesh(mesh), shader(shader), texture(texture) {
+        transform = Transform();  // Default Transform
+    }
 
-    // Update the object's state (e.g., movement, animations)
-    void Update(float deltaTime);
+    void Update(float deltaTime) {
+        // You can apply transformations here
+    }
 
-    // Render the object
-    void Render(const glm::mat4& view, const glm::mat4& projection);
+    void Draw(Renderer& renderer) {
+        // Bind the shader and texture before drawing the mesh
+        shader->use();
+        texture->bind();
+        mesh->draw();
+    }
 
-    // Setters/Getters for transform
-    void SetPosition(const glm::vec3& position);
-    glm::vec3 GetPosition() const;
-
-    void SetRotation(const glm::vec3& rotation);
-    glm::vec3 GetRotation() const;
-
-    void SetScale(const glm::vec3& scale);
-    glm::vec3 GetScale() const;
-
+    Transform transform;  // Stores position, rotation, scale
 private:
-    Mesh* m_mesh;
-    Texture* m_texture;
-    Shader* m_shader;
-
-    glm::vec3 m_position;    // Position of the object
-    glm::vec3 m_rotation;    // Rotation (in degrees or radians)
-    glm::vec3 m_scale;       // Scale factor
-
-    // Transformation matrices
-    glm::mat4 m_modelMatrix; // Model matrix (for transformation)
+    Mesh* mesh;
+    Shader* shader;
+    Texture* texture;
 };
 
 #endif

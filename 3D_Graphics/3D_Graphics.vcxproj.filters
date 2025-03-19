@@ -88,9 +88,6 @@
     <ClCompile Include="LevelLoader.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>src\outer</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
