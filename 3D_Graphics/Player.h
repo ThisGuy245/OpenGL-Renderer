@@ -25,8 +25,8 @@ public:
     glm::vec3 getScale() const { return m_scale; }
 
 private:
-    std::unique_ptr<Model> m_model;
-    std::unique_ptr<Texture> m_texture;
+    std::unique_ptr<Model> m_model;      
+    std::shared_ptr<Texture> m_texture;
     glm::vec3 m_position;
     glm::vec3 m_rotation;
     glm::vec3 m_scale;

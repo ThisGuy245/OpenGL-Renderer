@@ -5,22 +5,31 @@
 #include <string>
 #include <iostream>
 
+enum class TextureType {
+    DIFFUSE,
+    SPECULAR,
+    NORMAL,
+    HEIGHT
+};
+
 class Texture {
 public:
-    Texture(const std::string& path);
-    Texture(Texture&& other) noexcept; // Move constructor
-    Texture& operator=(Texture&& other) noexcept; // Move assignment operator
+    Texture(const std::string& path, TextureType type, bool srgb = false);
     ~Texture();
 
-    void bind() const;
+    void bind(GLuint unit = 0) const;
     void unbind() const;
     GLuint getID() const;
+    TextureType getType() const;
+
+    // Move semantics
+    Texture(Texture&& other) noexcept;
+    Texture& operator=(Texture&& other) noexcept;
 
 private:
     GLuint m_id;
-    int m_width;
-    int m_height;
-    int m_channels;
+    int m_width, m_height, m_channels;
+    TextureType m_type;
 };
 
-#endif // TEXTURE_H
+#endif

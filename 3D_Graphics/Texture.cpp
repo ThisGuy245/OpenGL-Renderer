@@ -3,24 +3,38 @@
 #include <stb_image.h>
 #include <stdexcept>
 
-Texture::Texture(const std::string& path)
-    : m_id(0), m_width(0), m_height(0), m_channels(0) {
+Texture::Texture(const std::string& path, TextureType type, bool srgb)
+    : m_id(0), m_width(0), m_height(0), m_channels(0), m_type(type) {
 
+    // Load image
     unsigned char* data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
     if (!data) {
         throw std::runtime_error("Failed to load texture: " + path);
     }
 
-    // Generate and bind the texture
+    // Determine texture format
+    GLenum internalFormat, format;
+    if (m_channels == 4) {
+        internalFormat = srgb ? GL_SRGB_ALPHA : GL_RGBA;
+        format = GL_RGBA;
+    }
+    else if (m_channels == 3) {
+        internalFormat = srgb ? GL_SRGB : GL_RGB;
+        format = GL_RGB;
+    }
+    else {
+        throw std::runtime_error("Unsupported texture format in: " + path);
+    }
+
+    // Generate and bind texture
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_2D, m_id);
 
-    // Determine the format based on the number of channels
-    GLenum format = (m_channels == 4) ? GL_RGBA : GL_RGB;
-    glTexImage2D(GL_TEXTURE_2D, 0, format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data);
+    // Upload texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
-    // Set texture parameters
+    // Texture Wrapping & Filtering
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -29,33 +43,15 @@ Texture::Texture(const std::string& path)
     stbi_image_free(data);
 }
 
-Texture::Texture(Texture&& other) noexcept
-    : m_id(other.m_id), m_width(other.m_width), m_height(other.m_height), m_channels(other.m_channels) {
-    other.m_id = 0; // Prevent deletion of the texture in the moved object
-}
-
-Texture& Texture::operator=(Texture&& other) noexcept {
-    if (this != &other) {
-        glDeleteTextures(1, &m_id); // Delete existing texture
-
-        m_id = other.m_id;
-        m_width = other.m_width;
-        m_height = other.m_height;
-        m_channels = other.m_channels;
-
-        other.m_id = 0; // Prevent deletion of the texture in the moved object
-    }
-    return *this;
-}
-
 Texture::~Texture() {
     if (m_id) {
         glDeleteTextures(1, &m_id);
-        std::cout << "Deleted texture: " << m_id << std::endl; // Log texture deletion
+        std::cout << "Deleted texture: " << m_id << std::endl;
     }
 }
 
-void Texture::bind() const {
+void Texture::bind(GLuint unit) const {
+    glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(GL_TEXTURE_2D, m_id);
 }
 
@@ -65,4 +61,31 @@ void Texture::unbind() const {
 
 GLuint Texture::getID() const {
     return m_id;
+}
+
+TextureType Texture::getType() const {
+    return m_type;
+}
+
+// Move constructor
+Texture::Texture(Texture&& other) noexcept
+    : m_id(other.m_id), m_width(other.m_width), m_height(other.m_height),
+    m_channels(other.m_channels), m_type(other.m_type) {
+    other.m_id = 0;
+}
+
+// Move assignment operator
+Texture& Texture::operator=(Texture&& other) noexcept {
+    if (this != &other) {
+        glDeleteTextures(1, &m_id); // Delete current texture
+
+        m_id = other.m_id;
+        m_width = other.m_width;
+        m_height = other.m_height;
+        m_channels = other.m_channels;
+        m_type = other.m_type;
+
+        other.m_id = 0;
+    }
+    return *this;
 }
