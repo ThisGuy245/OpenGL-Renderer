@@ -17,7 +17,7 @@ int SDL_main(int argc, char* argv[]) {
     // Set FPS
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
-    Uint32 frameStart = SDL_GetTicks();
+    
 
     // Initialise Window
     Window window("DOOM Level", 1280, 720);
@@ -61,6 +61,9 @@ int SDL_main(int argc, char* argv[]) {
             }
         }
 
+        // Frame Ticks
+        Uint32 frameStart = SDL_GetTicks();
+
         // Update input states (keyboard, mouse)
         InputManager::GetInstance().Update();
 
@@ -87,6 +90,7 @@ int SDL_main(int argc, char* argv[]) {
         glBindTexture(GL_TEXTURE_2D, 0);
 
         // Swap buffers
+        window.pollEvents(quit);
         window.swapBuffers();
 
         // FPS Set

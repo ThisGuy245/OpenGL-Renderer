@@ -7,6 +7,11 @@ Window::Window(const std::string& title, int width, int height)
         throw std::runtime_error("Failed to initialize SDL");
     }
 
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+
     window = SDL_CreateWindow(title.c_str(),
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         width, height,
@@ -21,9 +26,13 @@ Window::Window(const std::string& title, int width, int height)
         throw std::runtime_error("Failed to create OpenGL context");
     }
 
+    glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
         throw std::runtime_error("Failed to initialize GLEW");
     }
+
+
+
 }
 
 Window::~Window() {
@@ -41,6 +50,12 @@ void Window::pollEvents(bool& quit) {
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             quit = true;
+        }
+        // Handle window resizing events
+        if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
+            width = event.window.data1;
+            height = event.window.data2;
+            glViewport(0, 0, width, height);
         }
     }
 }
