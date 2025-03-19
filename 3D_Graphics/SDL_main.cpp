@@ -30,12 +30,12 @@ int SDL_main(int argc, char* argv[]) {
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
     // Initialise Player & Texture - Jouer et Textures
-    /*
+    
     Player catModel("./assets/models/curuthers/curuthers.obj",
-        "./assets/models/curuthers/Whiskers_diffuse.png");*/
+        "./assets/models/curuthers/Whiskers_diffuse.png");
 
     // TESTING adding a GameObject
-    GameObject catmodel;
+    //GameObject catmodel;
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));

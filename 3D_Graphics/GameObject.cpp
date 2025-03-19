@@ -43,7 +43,7 @@ void GameObject::Render(const glm::mat4& view, const glm::mat4& projection) {
 
     // Bind and draw the mesh
     m_mesh->bind();
-    glDrawElements(GL_TRIANGLES, m_mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
+    //glDrawElements(GL_TRIANGLES, m_mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
 }
 
 void GameObject::SetPosition(const glm::vec3& position) {

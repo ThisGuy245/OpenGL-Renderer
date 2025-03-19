@@ -3,7 +3,7 @@
 #include "Model.h"
 #include "Shader.h"
 #include "GameObject.h"
-
+/*
 class ModelComponent : public Component {
 public:
     Model model;
@@ -12,4 +12,4 @@ public:
         shader.setMat4("model", gameObject->transform.GetModelMatrix());
         model.Draw();
     }
-};
+};*/
