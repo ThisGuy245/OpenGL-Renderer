@@ -94,9 +94,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>src\outer</Filter>
-    </ClCompile>
     <ClCompile Include="ModelComponent.cpp">
       <Filter>src\outer</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
       <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>src\outer</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraComponent.h">
       <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="ModelComponent.h">

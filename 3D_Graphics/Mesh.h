@@ -3,30 +3,33 @@
 
 #include <GL/glew.h>
 #include <vector>
-#include "Texture.h"
 #include <glm/glm.hpp>
 
 struct Vertex {
     glm::vec3 position;
-    glm::vec3 normal;  // Added for future lighting support
+    glm::vec3 normal;
     glm::vec2 texCoords;
 };
 
 class Mesh {
 public:
-    Mesh(const std::vector<Vertex>& vertices,
-        const std::vector<unsigned int>& indices,
-        Texture texture); // Pass texture by value
+    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
     ~Mesh();
 
+    // Move Constructor & Move Assignment (for efficient resource handling)
+    Mesh(Mesh&& other) noexcept;
+    Mesh& operator=(Mesh&& other) noexcept;
+
     void draw() const;
-    void bind() const;  // Added for explicit VAO binding
-    void unbind() const; // Added for explicit VAO unbinding
+    void bind() const;
+    void unbind() const;
+    size_t getIndexCount() const { return indexCount; }
 
 private:
     GLuint vao, vbo, ebo;
-    Texture texture; // Store texture as a value instead of a reference
     size_t indexCount;
+
+    void setupMesh();
 };
 
 #endif // MESH_H
