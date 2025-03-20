@@ -11,10 +11,10 @@
 
 // Enum to specify the type of object
 enum class GameObjectType {
-    Model,       // Model loaded from file
-    Primitive,   // Primitive like Cube, Sphere, etc.
-    Camera,      // Camera object
-    Empty        // Empty GameObject, no model or texture
+    Model,
+    Primitive,   
+    Camera,      
+    Empty        
 };
 
 class GameObject {
@@ -39,14 +39,14 @@ public:
     glm::vec3 getScale() const;
 
 private:
-    GameObjectType m_type;  // Type of the GameObject (Model, Primitive, Camera, Empty)
+    GameObjectType m_type; 
 
-    std::unique_ptr<Model> m_model;  // The model associated with the GameObject (null if primitive or empty)
-    std::shared_ptr<Texture> m_texture;  // The texture for the model (null if no texture)
+    std::unique_ptr<Model> m_model; 
+    std::shared_ptr<Texture> m_texture;  
 
-    glm::vec3 m_position;  // Position of the GameObject
-    glm::vec3 m_rotation;  // Rotation of the GameObject
-    glm::vec3 m_scale;     // Scale of the GameObject
+    glm::vec3 m_position; 
+    glm::vec3 m_rotation; 
+    glm::vec3 m_scale;     
 };
 
 #endif // GAME_OBJECT_H

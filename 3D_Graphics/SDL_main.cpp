@@ -13,6 +13,9 @@
 #include "Camera.h"
 #include "GameObject.h"
 
+#include "Mesh.h"
+#include "Primitives.h"
+
 int SDL_main(int argc, char* argv[]) {
 
     // Set FPS
@@ -34,6 +37,10 @@ int SDL_main(int argc, char* argv[]) {
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
+
+    Mesh cube = Primitives::CreateCube(1.0f);
+    Mesh sphere = Primitives::CreateSphere(1.0f, 20);
+    Mesh plane = Primitives::CreatePlane(10.0f, 10.0f);
     
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -84,6 +91,12 @@ int SDL_main(int argc, char* argv[]) {
         // Render the player
         player.Update();
         player.Render(shader);
+
+        // In your main render loop
+        cube.draw();    // Draw the cube
+        sphere.draw();  // Draw the sphere
+        plane.draw();   // Draw the plane
+
 
         // Reset the state
         glBindVertexArray(0);
