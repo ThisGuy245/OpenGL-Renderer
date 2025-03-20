@@ -29,11 +29,6 @@ int SDL_main(int argc, char* argv[]) {
     // Load Shaders - Charger Ombreurs
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
-    // Initialise Player & Texture - Jouer et Textures
-    /*
-    Player catModel("./assets/models/curuthers/curuthers.obj",
-        "./assets/models/curuthers/Whiskers_diffuse.png");*/
-
     // TESTING adding a GameObject
     GameObject player("./assets/models/curuthers/curuthers.obj", "./assets/models/curuthers/Whiskers_diffuse.png");
 
