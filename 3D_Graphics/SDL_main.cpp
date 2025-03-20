@@ -93,10 +93,11 @@ int SDL_main(int argc, char* argv[]) {
         player.Render(shader);
 
         // In your main render loop
+        /*
         cube.draw();    // Draw the cube
         sphere.draw();  // Draw the sphere
         plane.draw();   // Draw the plane
-
+        */
 
         // Reset the state
         glBindVertexArray(0);

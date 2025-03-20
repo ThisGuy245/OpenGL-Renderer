@@ -11,10 +11,9 @@ public:
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     ~Shader();
 
-    void use() const; // Binds the shader program
-    void unbind() const; // Unbinds the shader program
+    void use() const;
+    void unbind() const; 
 
-    // Uniform setting methods
     void setInt(const std::string& name, int value);
     void setFloat(const std::string& name, float value);
     void setVec3(const std::string& name, const glm::vec3& vec);

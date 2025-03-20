@@ -9,8 +9,8 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-// Enum to specify the type of object
-enum class GameObjectType {
+
+enum class GameObjectType { // ASK KARSTEN IF THIS IS ANY GOOD
     Model,
     Primitive,   
     Camera,      
@@ -19,13 +19,9 @@ enum class GameObjectType {
 
 class GameObject {
 public:
-    // Constructor for GameObject
     GameObject(const std::string& modelPath, GameObjectType type, const std::string& texturePath = "");
 
-    // Update the GameObject (rotation, position, etc.)
     void Update();
-
-    // Render the GameObject using a shader
     void Render(Shader& shader);
 
     // Movement functions
