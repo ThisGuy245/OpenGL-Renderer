@@ -29,18 +29,13 @@ int SDL_main(int argc, char* argv[]) {
     // Load Shaders - Charger Ombreurs
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
-    Renderer renderer;  // Create a Renderer instance
-
-
     // Initialise Player & Texture - Jouer et Textures
     /*
     Player catModel("./assets/models/curuthers/curuthers.obj",
         "./assets/models/curuthers/Whiskers_diffuse.png");*/
 
     // TESTING adding a GameObject
-    Texture texture("./assets/models/curuthers/Whiskers_diffuse.png", TextureType::DIFFUSE);
-    Model playerModel("./assets/models/curuthers/curuthers.obj");
-    GameObject player(&playerModel, &shader, &texture);
+    GameObject player("./assets/models/curuthers/curuthers.obj", "./assets/models/curuthers/Whiskers_diffuse.png");
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
@@ -93,7 +88,7 @@ int SDL_main(int argc, char* argv[]) {
 
         // Render the player
         player.Update();
-        player.Draw(renderer);
+        player.Render(shader);
 
         // Reset the state
         glBindVertexArray(0);
