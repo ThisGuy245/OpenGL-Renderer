@@ -7,20 +7,20 @@
 #include "Renderer.h"
 #include "Transform.h"
 
-class Mesh;
+class Model;
 class Texture;
 class Shader;
 
 // GameObject.h
 class GameObject {
 public:
-    GameObject(Mesh* mesh, Shader* shader, Texture* texture);
-    void Update(float deltaTime);
+    GameObject(Model* model, Shader* shader, Texture* texture);
+    void Update();
     void Draw(Renderer& renderer);
 
     Transform transform;
 private:
-    Mesh* mesh;
+    Model* model;
     Shader* shader;
     Texture* texture;
 };

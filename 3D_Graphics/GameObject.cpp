@@ -1,19 +1,20 @@
 #include "GameObject.h"
-#include "Mesh.h"  // Include Mesh, Shader, Texture
+#include "Model.h"  // Include Model, Shader, Texture
 #include "Shader.h"
 #include "Texture.h"
 
-GameObject::GameObject(Mesh* mesh, Shader* shader, Texture* texture)
-    : mesh(mesh), shader(shader), texture(texture) {
+GameObject::GameObject(Model* model, Shader* shader, Texture* texture)
+    : model(model), shader(shader), texture(texture) {
     transform = Transform();  // Default Transform
 }
 
-void GameObject::Update(float deltaTime) {
+void GameObject::Update() {
     // Apply transformations here
 }
 
 void GameObject::Draw(Renderer& renderer) {
-    shader->use();
     texture->bind();
-    mesh->draw();
+    shader->use();
+    model->Draw();
+    texture->unbind();
 }
