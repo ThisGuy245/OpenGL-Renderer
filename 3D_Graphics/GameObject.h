@@ -1,4 +1,3 @@
-// GameObject.h
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
@@ -8,34 +7,46 @@
 #include "Transform.h"
 #include <string>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 
+// Enum to specify the type of object
+enum class GameObjectType {
+    Model,       // Model loaded from file
+    Primitive,   // Primitive like Cube, Sphere, etc.
+    Camera,      // Camera object
+    Empty        // Empty GameObject, no model or texture
+};
 
-// GameObject.h
 class GameObject {
 public:
-    GameObject(const std::string& modelPath, const std::string& texturePath);
+    // Constructor for GameObject
+    GameObject(const std::string& modelPath, GameObjectType type, const std::string& texturePath = "");
+
+    // Update the GameObject (rotation, position, etc.)
     void Update();
+
+    // Render the GameObject using a shader
     void Render(Shader& shader);
 
+    // Movement functions
     void Move(const glm::vec3& direction);
     void Rotate(float angle, const glm::vec3& axis);
     void SetScale(const glm::vec3& newScale);
 
-    Transform transform;
+    // Accessor functions for transformations
+    glm::vec3 getPosition() const;
+    glm::vec3 getRotation() const;
+    glm::vec3 getScale() const;
 
-    glm::vec3 getPosition() const { return m_position; }
-    glm::vec3 getRotation() const { return m_rotation; }
-    glm::vec3 getScale() const { return m_scale; }
 private:
-    std::unique_ptr<Model> m_model;
-    std::shared_ptr<Texture> m_texture;
+    GameObjectType m_type;  // Type of the GameObject (Model, Primitive, Camera, Empty)
 
-    glm::vec3 m_position;
-    glm::vec3 m_rotation;
-    glm::vec3 m_scale;
+    std::unique_ptr<Model> m_model;  // The model associated with the GameObject (null if primitive or empty)
+    std::shared_ptr<Texture> m_texture;  // The texture for the model (null if no texture)
+
+    glm::vec3 m_position;  // Position of the GameObject
+    glm::vec3 m_rotation;  // Rotation of the GameObject
+    glm::vec3 m_scale;     // Scale of the GameObject
 };
 
-
-#endif
+#endif // GAME_OBJECT_H
