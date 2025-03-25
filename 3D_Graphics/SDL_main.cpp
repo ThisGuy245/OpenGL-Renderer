@@ -94,10 +94,10 @@ int SDL_main(int argc, char* argv[]) {
         camera.handleMouseMovement(InputManager::GetInstance());
 
         // Render the player
-        /*
-        player.Update(1);
-        player.Render(shader);
-        */
+        float deltaTime = 0.016f;
+        player->Update(deltaTime);
+        player->Render(shader);
+        
 
         // In your main render loop
         /*
