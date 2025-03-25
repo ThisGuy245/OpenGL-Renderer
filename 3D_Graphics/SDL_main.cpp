@@ -11,7 +11,10 @@
 #include "Log.h"
 #include "Model.h"
 #include "Camera.h"
+
+// Entity Component System
 #include "GameObject.h"
+#include "ModelComponent.h"
 
 #include "Mesh.h"
 #include "Primitives.h"
@@ -33,7 +36,9 @@ int SDL_main(int argc, char* argv[]) {
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
     // TESTING adding a GameObject
-    GameObject player("./assets/models/curuthers/Whiskers_diffuse.png");
+    //GameObject player("./assets/models/curuthers/Whiskers_diffuse.png");
+    auto player = std::make_shared<GameObject>("Player");
+    player->AddComponent<ModelComponent>("./assets/models/curuthers/curuthers.obj", "./assets/models/curuthers/Whiskers_diffuse.png");
 
     // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
@@ -89,8 +94,10 @@ int SDL_main(int argc, char* argv[]) {
         camera.handleMouseMovement(InputManager::GetInstance());
 
         // Render the player
+        /*
         player.Update(1);
         player.Render(shader);
+        */
 
         // In your main render loop
         /*
