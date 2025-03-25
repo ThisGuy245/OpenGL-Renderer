@@ -1,70 +1,117 @@
 #include "GameObject.h"
+#include "Component.h"
+#include "ModelComponent.h" // You'll need to create this
+#include "Shader.h"
 
-GameObject::GameObject(const std::string& modelPath, GameObjectType type, const std::string& texturePath)
-    : m_type(type), m_position(0.0f, 0.0f, 0.0f), m_rotation(0.0f, 0.0f, 0.0f), m_scale(1.0f, 1.0f, 1.0f) {
+GameObject::GameObject(const std::string& name)
+    : m_name(name),
+    m_position(0.0f),
+    m_rotation(0.0f),
+    m_scale(1.0f),
+    m_parent(nullptr) {}
 
-    if (m_type == GameObjectType::Model) {
-        m_model = std::make_unique<Model>(modelPath);
-        m_texture = std::make_shared<Texture>(texturePath, TextureType::DIFFUSE);
+GameObject::~GameObject() {
+    // Remove from parent's children list if exists
+    if (m_parent) {
+        m_parent->RemoveChild(this);
     }
 
+    // Clear children
+    for (auto child : m_children) {
+        child->m_parent = nullptr;
+    }
+}
+
+void GameObject::Update(float deltaTime) {
+    // Update all components
+    for (auto& component : m_components) {
+        component->Update(deltaTime);
+    }
+
+    // Update children
+    for (auto child : m_children) {
+        child->Update(deltaTime);
+    }
 }
 
 void GameObject::Render(Shader& shader) {
-    glm::mat4 modelMatrix = glm::mat4(1.0f); // CHANGE THIS SHIT TO TRANSFORM.CPP WHEN READY
+    shader.setMat4("model", GetTransformMatrix());
 
-    modelMatrix = glm::translate(modelMatrix, m_position);
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(m_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    modelMatrix = glm::scale(modelMatrix, m_scale);
-
-
-    shader.setMat4("model", modelMatrix);
-
-
-    if (m_texture) {
-        m_texture->bind();
-        glActiveTexture(GL_TEXTURE0);  
-        shader.setInt("texture1", 0);  
+    // Render all components
+    for (auto& component : m_components) {
+        component->Render(shader);
     }
 
-    if (m_model) {
-        m_model->Draw();
-    }
-
-    if (m_texture) {
-        m_texture->unbind();
+    // Render children
+    for (auto child : m_children) {
+        child->Render(shader);
     }
 }
 
-void GameObject::Update() { // JUST TO TEST LIGHTING FOR THIS WEEK
-    float deltaTime = 0.016f;
-    float rotationSpeed = 2.0f; 
-    m_rotation.y += rotationSpeed * deltaTime;
+Component* GameObject::AddComponentInternal(std::unique_ptr<Component> component) {
+    m_components.push_back(std::move(component));
+    return m_components.back().get();
 }
 
-void GameObject::Move(const glm::vec3& direction) {
-    m_position += direction;  
+// Transform operations
+void GameObject::Translate(const glm::vec3& translation) {
+    m_position += translation;
 }
 
 void GameObject::Rotate(float angle, const glm::vec3& axis) {
-    m_rotation += axis * angle;  
+    m_rotation += axis * angle;
 }
 
-void GameObject::SetScale(const glm::vec3& newScale) {
-    m_scale = newScale;  
+void GameObject::SetScale(const glm::vec3& scale) {
+    m_scale = scale;
 }
 
-// Accessor methods
-glm::vec3 GameObject::getPosition() const {
-    return m_position;
+// Hierarchy management
+void GameObject::SetParent(GameObject* parent) {
+    if (m_parent) {
+        m_parent->RemoveChild(this);
+    }
+
+    m_parent = parent;
+    if (parent) {
+        parent->AddChild(this);
+    }
 }
 
-glm::vec3 GameObject::getRotation() const {
-    return m_rotation;
+void GameObject::AddChild(GameObject* child) {
+    if (child && std::find(m_children.begin(), m_children.end(), child) == m_children.end()) {
+        m_children.push_back(child);
+        child->m_parent = this;
+    }
 }
 
-glm::vec3 GameObject::getScale() const {
-    return m_scale;
+void GameObject::RemoveChild(GameObject* child) {
+    auto it = std::find(m_children.begin(), m_children.end(), child);
+    if (it != m_children.end()) {
+        (*it)->m_parent = nullptr;
+        m_children.erase(it);
+    }
 }
+
+// Accessors
+const glm::vec3& GameObject::GetPosition() const { return m_position; }
+const glm::vec3& GameObject::GetRotation() const { return m_rotation; }
+const glm::vec3& GameObject::GetScale() const { return m_scale; }
+
+glm::mat4 GameObject::GetTransformMatrix() const {
+    glm::mat4 transform = glm::mat4(1.0f);
+    transform = glm::translate(transform, m_position);
+    transform = glm::rotate(transform, glm::radians(m_rotation.x), glm::vec3(1, 0, 0));
+    transform = glm::rotate(transform, glm::radians(m_rotation.y), glm::vec3(0, 1, 0));
+    transform = glm::rotate(transform, glm::radians(m_rotation.z), glm::vec3(0, 0, 1));
+    transform = glm::scale(transform, m_scale);
+
+    // Apply parent's transform if exists
+    if (m_parent) {
+        transform = m_parent->GetTransformMatrix() * transform;
+    }
+
+    return transform;
+}
+
+const std::string& GameObject::GetName() const { return m_name; }

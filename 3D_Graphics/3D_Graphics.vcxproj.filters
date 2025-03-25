@@ -29,6 +29,9 @@
     <Filter Include="src\outer">
       <UniqueIdentifier>{ef54ac12-7eeb-4b43-a16a-ace7589ae99f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components">
+      <UniqueIdentifier>{a913edad-1229-4f37-81fd-a046b8e2c2ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -89,7 +92,10 @@
       <Filter>src\outer</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>src\outer</Filter>
+      <Filter>src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponent.cpp">
+      <Filter>src\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +160,10 @@
       <Filter>src\outer</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>src\outer</Filter>
+      <Filter>src\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponent.h">
+      <Filter>src\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
