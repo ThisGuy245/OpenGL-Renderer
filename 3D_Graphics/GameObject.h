@@ -99,4 +99,4 @@ bool GameObject::RemoveComponent() {
     return false;
 }
 
-#endif // GAME_OBJECT_H
+#endif
