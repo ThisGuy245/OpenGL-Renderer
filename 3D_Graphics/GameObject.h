@@ -49,6 +49,10 @@ public:
     const glm::vec3& GetScale() const;
     glm::mat4 GetTransformMatrix() const;
     const std::string& GetName() const;
+    GameObject* GetParent() const { return m_parent; }
+    const std::vector<GameObject*>& GetChildren() const { return m_children; } // Only one declaration needed
+    void SetTag(const std::string& tag) { m_tag = tag; }
+    const std::string& GetTag() const { return m_tag; }
 
 private:
     std::string m_name;
@@ -59,8 +63,9 @@ private:
     std::vector<std::unique_ptr<Component>> m_components;
     GameObject* m_parent;
     std::vector<GameObject*> m_children;
+    std::string m_tag = "Untagged";
 
-    // Helper for component operations
+    // Helper for component operationsss
     Component* AddComponentInternal(std::unique_ptr<Component> component);
 };
 

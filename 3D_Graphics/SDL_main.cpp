@@ -36,7 +36,6 @@ int SDL_main(int argc, char* argv[]) {
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
 
     // TESTING adding a GameObject
-    //GameObject player("./assets/models/curuthers/Whiskers_diffuse.png");
     auto player = std::make_shared<GameObject>("Player");
     player->AddComponent<ModelComponent>("./assets/models/curuthers/curuthers.obj", "./assets/models/curuthers/Whiskers_diffuse.png");
 
@@ -95,11 +94,12 @@ int SDL_main(int argc, char* argv[]) {
 
         // Render the player
         float deltaTime = 0.016f;
+        Log::info("This is the game object rendering");
         player->Update(deltaTime);
         player->Render(shader);
         
 
-        // In your main render loop
+        // In your main render loop   -   DEPRECATED
         /*
         cube.draw();    // Draw the cube
         sphere.draw();  // Draw the sphere
