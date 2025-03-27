@@ -7,64 +7,67 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "Shader.h"
-#include "Player.h"
 #include "Log.h"
 #include "Model.h"
 #include "Camera.h"
-
-// Entity Component System
+#include "Scene.h"  // Add this include
 #include "GameObject.h"
 #include "ModelComponent.h"
-
 #include "Mesh.h"
 #include "Primitives.h"
 
 int SDL_main(int argc, char* argv[]) {
-
     // Set FPS
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
-    
 
-    // Initialise Window - Initialise Fenetre
+    // Initialize systems
     Window window("DOOM Level", 1280, 720);
-
-    // Initialise Input Manager - Entrée de Donées
     InputManager::GetInstance().Initialize();
-
-    // Load Shaders - Charger Ombreurs
     Shader shader("./assets/shaders/basic.vert", "./assets/shaders/basic.frag");
-
-    // TESTING adding a GameObject
-    auto player = std::make_shared<GameObject>("Player");
-    player->AddComponent<ModelComponent>("./assets/models/curuthers/curuthers.obj", "./assets/models/curuthers/Whiskers_diffuse.png");
-
-    // Initialise Camera 
     Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
 
-    Mesh cube = Primitives::CreateCube(1.0f);
-    Mesh sphere = Primitives::CreateSphere(1.0f, 20);
-    Mesh plane = Primitives::CreatePlane(10.0f, 10.0f);
-    
+    // Create scene
+    Scene mainScene("MainScene");
+
+    // Create player GameObject through scene
+    GameObject* player = mainScene.CreateGameObject("Player");
+    player->AddComponent<ModelComponent>(
+        "./assets/models/curuthers/curuthers.obj",
+        "./assets/models/curuthers/Whiskers_diffuse.png"
+    );
+    player->Translate(glm::vec3(0.0f, 0.0f, -2.0f)); // Position in front of camera
+
+    // Optional: Create some test primitives through scene
+    GameObject* floor = mainScene.CreateGameObject("Floor");
+    floor->AddComponent<ModelComponent>(Primitives::CreatePlane(10.0f, 10.0f));
+    floor->Translate(glm::vec3(0.0f, -1.0f, 0.0f));
+
+    // Enable OpenGL features
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    // Define camera matrices - Les vue ports et projections
-    glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 1.0f, 5.0f), // Camera position
-        glm::vec3(0.0f, 0.0f, 0.0f), // Look-at point
-        glm::vec3(0.0f, 1.0f, 0.0f)); // Up direction
-
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), // FOV
-        1280.0f / 720.0f,    // Aspect ratio
-        0.1f, 100.0f);       // Near & far plane
+    // Projection matrix
+    glm::mat4 projection = glm::perspective(
+        glm::radians(45.0f),
+        1280.0f / 720.0f,
+        0.1f,
+        100.0f
+    );
 
     Log::info("Application Started");
 
     // Main loop
     bool quit = false;
+    Uint32 lastTime = SDL_GetTicks();
     while (!quit) {
-        // Poll events - Evenements de managiere d'entrées
+        // Calculate delta time
+        Uint32 currentTime = SDL_GetTicks();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;
+        lastTime = currentTime;
+
+        // Event handling
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             InputManager::GetInstance().HandleEvent(event);
@@ -73,50 +76,35 @@ int SDL_main(int argc, char* argv[]) {
             }
         }
 
-        // Frame Ticks
-        Uint32 frameStart = SDL_GetTicks();
-
-        // Update input states (keyboard, mouse)
+        // Input and camera
         InputManager::GetInstance().Update();
+        camera.handleMovement(InputManager::GetInstance());
+        camera.handleMouseMovement(InputManager::GetInstance());
 
-        // Clear the screen (Couleur d'arriere plan)
+        // Clear screen
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Set shader uniforms - ombreurs
+        // Set shader uniforms
         shader.use();
         shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", projection);
 
-        // Handle camera movement and rotation based on input
-        camera.handleMovement(InputManager::GetInstance());
-        camera.handleMouseMovement(InputManager::GetInstance());
+        // Update and render entire scene
+        mainScene.Update(deltaTime);
+        mainScene.Render(shader);
 
-        // Render the player
-        float deltaTime = 0.016f;
-        Log::info("This is the game object rendering");
-        player->Update(deltaTime);
-        player->Render(shader);
-        
-
-        // In your main render loop   -   DEPRECATED
-        /*
-        cube.draw();    // Draw the cube
-        sphere.draw();  // Draw the sphere
-        plane.draw();   // Draw the plane
-        */
-
-        // Reset the state
+        // Reset OpenGL state
         glBindVertexArray(0);
         glUseProgram(0);
         glBindTexture(GL_TEXTURE_2D, 0);
 
         // Swap buffers
-        window.pollEvents(quit);
         window.swapBuffers();
+        window.pollEvents(quit);
 
-        // FPS Set
-        Uint32 frameTime = SDL_GetTicks() - frameStart;
+        // Frame rate control
+        Uint32 frameTime = SDL_GetTicks() - currentTime;
         if (frameTime < frameDelay) {
             SDL_Delay(frameDelay - frameTime);
         }

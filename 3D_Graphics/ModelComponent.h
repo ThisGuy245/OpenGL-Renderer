@@ -4,11 +4,16 @@
 #include "Component.h"
 #include "Model.h"
 #include "Texture.h"
+#include "Mesh.h"
 
 class ModelComponent : public Component {
 public:
+    // Constructor for loading from file
     ModelComponent(GameObject* owner, const std::string& modelPath,
         const std::string& texturePath = "");
+
+    // Constructor for existing Mesh
+    ModelComponent(GameObject* owner, const Mesh& mesh);
 
     void Render(Shader& shader) override;
 
