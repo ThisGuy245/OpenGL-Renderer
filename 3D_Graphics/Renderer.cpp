@@ -2,17 +2,13 @@
 #include "Mesh.h"
 
 Renderer::Renderer() {
-    // Enable depth testing by default
     glEnable(GL_DEPTH_TEST);
-
-    // Enable face culling by default
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    glFrontFace(GL_CCW); // Counterclockwise faces are front-facing
+    glFrontFace(GL_CCW); 
 }
 
 Renderer::~Renderer() {
-    // Cleanup if needed
 }
 
 void Renderer::clear() const {
@@ -42,7 +38,7 @@ void Renderer::disableFaceCulling() const {
 }
 
 void Renderer::bind(const Mesh& mesh) const {
-    mesh.bind(); // Assuming Mesh has a bind() method
+    mesh.bind(); 
 }
 
 void Renderer::unbind() const {
@@ -50,9 +46,9 @@ void Renderer::unbind() const {
 }
 
 void Renderer::draw(const Mesh& mesh) const {
-    bind(mesh); // Bind the mesh before drawing
+    bind(mesh); 
     mesh.draw();
-    unbind();   // Unbind after drawing
+    unbind();  
 }
 
 void Renderer::setWireframeMode(bool enabled) const {

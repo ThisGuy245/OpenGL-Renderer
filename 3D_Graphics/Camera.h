@@ -11,6 +11,9 @@ public:
         glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
         float yaw = -90.0f, float pitch = 0.0f);
 
+    // Copy constructor (needed for ECS component storage)
+    Camera(const Camera& other);
+
     glm::mat4 getViewMatrix() const;
     glm::mat4 getProjectionMatrix(float aspectRatio) const;
 

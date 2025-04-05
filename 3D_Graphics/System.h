@@ -1,5 +1,5 @@
 #pragma once
-class ECSWorld; // Forward declaration
+class ECSWorld;
 
 class System {
 public:

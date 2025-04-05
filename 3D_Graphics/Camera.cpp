@@ -5,6 +5,17 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     updateVectors(); 
 }
 
+Camera::Camera(const Camera& other) :
+    position(other.position),
+    front(other.front),
+    up(other.up),
+    right(other.right),
+    worldUp(other.worldUp),
+    yaw(other.yaw),
+    pitch(other.pitch) {
+    // Vectors are already calculated in copy
+}
+
 glm::mat4 Camera::getViewMatrix() const {  
 // Matrice de Vue - ça utilise la position puis on rajoute le front pour voir ou ça regarde
     return glm::lookAt(position, position + front, up);
