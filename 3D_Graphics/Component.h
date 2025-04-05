@@ -2,7 +2,6 @@
 #define COMPONENT_H
 
 #include <memory>
-#include "GameObject.h"
 #include "Shader.h"
 
 class GameObject;

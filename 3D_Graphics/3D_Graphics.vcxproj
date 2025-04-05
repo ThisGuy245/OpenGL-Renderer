@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>contrib/include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>contrib/include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,20 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraComponent.h" />
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="ECSWorld.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDL_main.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -163,20 +163,21 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ComponentStorage.h" />
+    <ClInclude Include="ECSWorld.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VertexArray.h" />

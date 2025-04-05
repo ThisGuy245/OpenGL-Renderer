@@ -12,13 +12,6 @@ ModelComponent::ModelComponent(GameObject* owner,
     }
 }
 
-// Constructor for existing Mesh
-ModelComponent::ModelComponent(GameObject* owner, const Mesh& mesh)
-    : Component(owner) {
-    // Convert Mesh to Model (you may need to adjust this based on your Mesh/Model classes)
-    m_model = std::make_unique<Model>();
-    m_model->AddMesh(mesh);
-}
 
 void ModelComponent::Render(Shader& shader) {
     if (m_texture) {
